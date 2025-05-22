@@ -39,9 +39,9 @@ innodb_log_file_size = 1024M
 
 ### Example Configuration:
 #### Server Size: 32 Core, 64 GB Memory, SSD Disk
-`vi /etc/my.cnf`
+```vi /etc/my.cnf```
 
-`
+```
 [mysqld]
 # General Settings
 port                           = 3306
@@ -142,4 +142,4 @@ key_buffer                     = 16M
 # database=your_database
 # user=your_user
 # password=your_password
-`
+```
