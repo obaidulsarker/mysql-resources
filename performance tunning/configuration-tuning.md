@@ -3,39 +3,48 @@
 ## MySQL 8.0
 
 To let MySQL automatically configure InnoDB variables, set the innodb_dedicated_server = ON parameter. The following variables will be configured:
+```
 innodb_buffer_pool_size
 innodb_log_file_size
 innodb_log_files_in_group
 innodb_flush_method
-
+```
 - Determines the combined size of all logs. If the available RAM is <2GB, set the value to 2, if it is >2GB, set the value to 4.
-innodb_log_files_in_group = 4 
-innodb_buffer_pool_instances = 8 (or 1 if innodb_buffer_pool_size < 1GB)
-
+  ```
+  innodb_log_files_in_group = 4 
+  innodb_buffer_pool_instances = 8 # (or 1 if innodb_buffer_pool_size < 1GB)
+  ```
 - Use the following formula to calculate the value: 0.75*RAM. If the available RAM is 128GB, then 128*0.75 = 96.
-innodb_buffer_pool_size = 96G 
-innodb_log_buffer_size = 256M
-
+  ```
+  innodb_buffer_pool_size = 96G 
+  innodb_log_buffer_size = 256M
+  ```
+  
 - Using 2x the quantity of cores is recommended.
-innodb_thread_concurrency = 64 
-innodb_file_per_table = ON
-innodb_stats_on_metadata = OFF
+ ```
+  innodb_thread_concurrency = 64 
+  innodb_file_per_table = ON
+  innodb_stats_on_metadata = OFF
+  ```
 
 - Commented out by default. Determines the method to flush data to InnoDB data files and logs. Using it can affect I/O throughput. (Recommended values for codebeamer, if needed: O_DIRECT: local/DAS, O_DSYNC: SAN/iSCSI)
-innodb_flush_method = O_DIRECT 
-
+  ```
+  innodb_flush_method = O_DIRECT 
+  ```
 
 - The values below should be adjusted depending on the available physical memory (RAM) of the MySQL server (the values here are a general examples, it is advised to use the values automatically configured as a starting point):
--- RAM: 2-8GB
+```
+# RAM: 2-8GB
 innodb_log_file_size = 128M
--- RAM: 8-24GB
+# RAM: 8-24GB
 innodb_log_file_size = 256M
--- RAM: 24-64GB
+# RAM: 24-64GB
 innodb_log_file_size = 512M
--- RAM: 64-128GB
+# RAM: 64-128GB
 innodb_log_file_size = 768M
--- RAM: 128GM+
+# RAM: 128GM+
 innodb_log_file_size = 1024M
+```
 
 ### Example Configuration:
 #### Server Size: 32 Core, 64 GB Memory, SSD Disk
